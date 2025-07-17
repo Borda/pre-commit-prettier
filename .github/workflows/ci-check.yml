@@ -27,6 +27,8 @@ jobs:
 
       - name: Inject PR SHA into pre-commit config
         run: |
+          echo "repo: ${GITHUB_REPOSITORY}"
+          echo "git SHA: ${GITHUB_SHA}"
           python .github/inject-sha.py ${GITHUB_SHA}
           cat .pre-commit-config.yaml
 
