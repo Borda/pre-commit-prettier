@@ -1,0 +1,35 @@
+name: local pre-commit
+
+on:
+  push:
+    branches: [main]
+  pull_request: {}
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  check-with-SHA:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install pre-commit
+        run: pip install pre-commit pyYAML
+
+      - name: Inject PR SHA into pre-commit config
+        run: |
+          python .github/inject-sha.py ${GITHUB_SHA}
+          cat .pre-commit-config.yaml
+
+      - name: Run pre-commit hooks
+        run: |
+          pre-commit run --all-files --show-diff-on-failure
