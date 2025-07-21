@@ -1,8 +1,10 @@
+import sys
 import yaml
 
 THIS_REPO = "https://github.com/JoC0de/pre-commit-prettier"
 ROOT_REPO_NAME = "JoC0de/pre-commit-prettier"
 PRE_COMMIT_CONFIG = ".pre-commit-config.yaml"
+
 
 def main(sha: str, repo: str = ROOT_REPO_NAME) -> None:
     """Inject the SHA into the YAML file."""
@@ -25,10 +27,10 @@ def main(sha: str, repo: str = ROOT_REPO_NAME) -> None:
     with open(PRE_COMMIT_CONFIG, "w", encoding="utf-8") as fo:
         yaml.safe_dump(config, fo, default_flow_style=False)
 
+
 if __name__ == "__main__":
-    import sys
-    if len(sys.argv) != 2:
-        print("Usage: python inject-sha.py <sha>")
+    if len(sys.argv) not in (2, 3):
+        print("Usage: python inject-sha.py <sha> [optional:<repo-name>]")
         sys.exit(1)
 
     sha = sys.argv[1]
