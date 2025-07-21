@@ -1,4 +1,4 @@
-name: local pre-commit
+name: Test if pre-commit prettier works
 
 on:
   push:
