@@ -1,4 +1,4 @@
-name: main
+name: Build main with pre-commit-mirror-maker
 on:
   workflow_dispatch:
   push:
@@ -14,8 +14,7 @@ defaults:
     shell: bash
 
 jobs:
-  build:
-    name: main
+  build-main:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -43,6 +42,7 @@ jobs:
           # remove the template files that we have overwritten with custom parameters
           Remove-Item -Path "$pythonPackageLocation/pre_commit_mirror_maker/node/.npmignore" -ErrorAction Ignore
           Remove-Item -Path "$pythonPackageLocation/pre_commit_mirror_maker/node/package.json" -ErrorAction Ignore
+        shell: pwsh
 
       - name: Configure Git user
         run: |
