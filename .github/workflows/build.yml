@@ -55,4 +55,4 @@ jobs:
       # todo: there is no commit so far, so this action has in fact void effect
 
       - name: Push to repository
-        run: git push origin HEAD:refs/heads/main
+        run: git push origin HEAD:refs/heads/main --tags
