@@ -1,8 +1,7 @@
 # See https://pre-commit.com for more information
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
-  - repo: https://github.com/JoC0de/pre-commit-prettier
-    rev: "v3.5.3"
+  - repo: local
     hooks:
       - id: prettier
         files: \.(json|xml|html|yaml|yml|js)$

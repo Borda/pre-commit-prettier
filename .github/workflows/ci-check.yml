@@ -23,14 +23,7 @@ jobs:
           python-version: '3.x'
 
       - name: Install pre-commit
-        run: pip install pre-commit pyYAML
-
-      - name: Inject PR SHA into pre-commit config
-        run: |
-          echo "repo: ${GITHUB_REPOSITORY}"
-          echo "git SHA: ${GITHUB_SHA}"
-          python .github/inject-sha.py ${GITHUB_SHA}
-          cat .pre-commit-config.yaml
+        run: pip install pre-commit
 
       - name: Run pre-commit hooks
         run: |
