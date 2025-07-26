@@ -27,11 +27,12 @@ jobs:
 
       - name: Inject PR SHA into pre-commit config
         run: |
-          REPO_NAME="${{ github.event.pull_request.head.repo.full_name || github.repository }}"
           echo "repo: ${REPO_NAME}"
           echo "git SHA: ${GITHUB_SHA}"
           python .github/inject-sha.py ${GITHUB_SHA} ${REPO_NAME}
           cat .pre-commit-config.yaml
+        env:
+          REPO_NAME: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
 
       - name: Run pre-commit hooks
         run: |

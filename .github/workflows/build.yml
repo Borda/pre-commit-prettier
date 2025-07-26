@@ -1,4 +1,4 @@
-name: Build main with pre-commit-mirror-maker
+name: Update to the latest prettier version using pre-commit-mirror-maker
 on:
   workflow_dispatch:
   push:
@@ -44,7 +44,7 @@ jobs:
           Remove-Item -Path "$pythonPackageLocation/pre_commit_mirror_maker/node/package.json" -ErrorAction Ignore
         shell: pwsh
 
-      - name: Configure Git user
+      - name: Configure Git user so we can commit the changes
         run: |
           git config --local user.name 'Github Actions'
           git config --local user.email '41898282+github-actions[bot]@users.noreply.github.com'
@@ -59,5 +59,5 @@ jobs:
             --id=prettier \
             --entry "pre-commit-prettier --write --ignore-unknown --experimental-cli --no-cache"
 
-      - name: Push to repository
+      - name: Push the new version to repository (the tag and the commit with the changes)
         run: git push origin HEAD:refs/heads/main --tags
