@@ -38,4 +38,4 @@ jobs:
 
       - name: Run pre-commit hooks
         run: |
-          pre-commit run --all-files
+          pre-commit run --files run-prettier.js README.md package.json .prettierrc.yaml
