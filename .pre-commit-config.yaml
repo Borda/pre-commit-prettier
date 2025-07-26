@@ -2,10 +2,11 @@
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
   - repo: https://github.com/JoC0de/pre-commit-prettier
-    rev: main  # Default fallback version
+    rev: "v3.5.3"
     hooks:
       - id: prettier
         files: \.(json|xml|html|yaml|yml|js)$
+        exclude: ^\.pre-commit-hooks\.yaml$
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: "v5.0.0"
     hooks:

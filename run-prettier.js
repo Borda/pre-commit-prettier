@@ -4,7 +4,8 @@
 
 import { readFileSync, readdirSync, existsSync } from "node:fs";
 import path from "node:path";
-import { run as runPrettier } from "prettier/internal/cli.mjs";
+import { createRequire } from "node:module";
+import url from "node:url";
 
 const nodePath = path.resolve(process.env.NODE_PATH);
 const pluginsPath = path.resolve(nodePath, "@prettier");
@@ -73,7 +74,9 @@ const additionalArguments = plugins
       console.error(`Error '${error}' reading or parsing package.json from '${pluginDirectoryPath}'`);
       pluginImportPath = pluginDirectoryPath;
     }
-    return ["--plugin", pluginImportPath];
+
+    const pluginImportFileUrl = url.pathToFileURL(pluginImportPath);
+    return ["--plugin", pluginImportFileUrl.toString()];
   });
 
 // the first two items of process.argv are reserved (the node.exe and the current file name) so insert after them
@@ -90,4 +93,6 @@ process.stdout.write = function (message, ...optionalParams) {
   originalWrite.apply(process.stdout, [message, ...optionalParams]);
 };
 
-runPrettier();
+const requireImport = createRequire(import.meta.url);
+const runPrettier = requireImport("prettier/bin/prettier.cjs");
+await runPrettier;
